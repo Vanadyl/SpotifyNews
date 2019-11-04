@@ -4,10 +4,10 @@
 **Slack WorkSpace**  
 http://softwareengin-feh2864.slack.com
 
-**ScrumDesk WorkSpace**
+**ScrumDesk WorkSpace**  
 https://app.scrumdesk.com/#/projects/31389
 
-**Lucid Chart WorkSpace**
+**Lucid Chart WorkSpace**  
 https://www.lucidchart.com/invitations/accept/8c44cfea-b536-40ac-ba28-8a54a9c60549
 
 **Group Member info**
