@@ -25,17 +25,18 @@ banner.pack()
 
 #Get Song Function
 
-#def getSong()
+def getSong():
+    print("Song Chosen!")
 
 
 
 
 #Get song Button
 
-songButton = tk.Button(rootFrame, text="Get Song!", font= "Tahoma")
+songButton = tk.Button(rootFrame, text="Get Song!", font= "Tahoma", command= getSong)
 songButton.pack()
 
 
 
-#Call tk windoew mainloop
+#Call tk window mainloop
 root.mainloop()
