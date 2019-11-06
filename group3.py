@@ -9,6 +9,7 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title("Spotify News Suggestor")
+root.geometry("700x500")
 
 #Create Frame for widgets
 rootFrame = tk.Frame(root)
@@ -21,6 +22,18 @@ titleFrame.pack()
 #Banner Text
 banner = tk.Label(titleFrame, text="Spotify News Suggestor", font = "Tahoma")
 banner.pack()
+
+#Get Song Function
+
+#def getSong()
+
+
+
+
+#Get song Button
+
+songButton = tk.Button(rootFrame, text="Get Song!", font= "Tahoma")
+songButton.pack()
 
 
 
