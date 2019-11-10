@@ -1,8 +1,17 @@
 # :newspaper:SpotifyNews:musical_note:
 ## Computer Science: Software Engineering Group 3
 
-**Slack WorkSpace**  
-https://join.slack.com/t/softwareengin-feh2864/shared_invite/enQtODA3OTgxNzgyMDM4LWRlZmEyNjNiMjRmZGY5MzFiZmIxNGU1OGU1NTI3OWYzMGEzZmZkNmQ5YmM2NjQzMjFkMTBjMzgyNGU0NjdiYTU
+**Slack Work Space**  
+http://softwareengin-feh2864.slack.com
+
+**ScrumDesk Work Space**  
+https://app.scrumdesk.com/#/projects/31389
+
+**Lucid Chart Work Space**  
+https://www.lucidchart.com/invitations/accept/8c44cfea-b536-40ac-ba28-8a54a9c60549
+
+**OneDrive Sharepoint**  
+https://universityoflincoln.sharepoint.com/sites/og-group3softwareengineering
 
 **Group Member info**
 * Joseph Adderley  - 17646319@students.lincoln.ac.uk  
