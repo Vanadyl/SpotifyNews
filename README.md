@@ -61,3 +61,4 @@ https://universityoflincoln.sharepoint.com/sites/og-group3softwareengineering
 ## 6. Use VSCode to open the SpotifyNews folder
 >***Start Coding!***
 
+## Please contact Louis if you have any questions.
