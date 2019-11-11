@@ -57,3 +57,7 @@ https://universityoflincoln.sharepoint.com/sites/og-group3softwareengineering
 ## 5. How to deactive or how to exit the Virtual Environment?
 ### Use command to exit virtual environment
 >***deactivate***
+
+## 6. Use VSCode to open the SpotifyNews folder
+>***Start Coding!***
+
