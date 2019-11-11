@@ -4,8 +4,8 @@
 **Slack Work Space**  
 http://softwareengin-feh2864.slack.com
 
-**ScrumDesk Work Space**  
-https://app.scrumdesk.com/#/projects/31389
+**ProductBeat Work Space**  
+https://use.productbeatapp.com/team/uolsebgroup3/spotifynews/
 
 **Lucid Chart Work Space**  
 https://www.lucidchart.com/invitations/accept/8c44cfea-b536-40ac-ba28-8a54a9c60549
