@@ -7,11 +7,10 @@
 @Auther: XQING
 @Date: 2019-11-03 21:21:04
 @LastEditors: XQING
-@LastEditTime: 2019-11-10 02:54:59
+@LastEditTime: 2019-11-10 16:20:42
 @Software: VSCode
 '''
-
-
+# import modules
 
 import json
 from newsapi import NewsApiClient
@@ -33,12 +32,8 @@ def getTopHeadlines(country='gb', page=1, page_size=20):
     else:
         return 'error'
 
-
 def test():
     print()
-
-
-
 
 if __name__ == '__main__':
     test()
