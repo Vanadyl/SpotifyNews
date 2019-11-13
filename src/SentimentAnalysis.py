@@ -3,34 +3,26 @@
 import os
 from azure.cognitiveservices.language.textanalytics import TextAnalyticsClient
 from msrest.authentication import CognitiveServicesCredentials
-key_var_name = 'abd1652d64b84172b9a3e316c558f4e6'
-if not key_var_name in os.environ:
-    raise Exception('Please set/export the environment variable: {}'.format(key_var_name))
-subscription_key = os.environ[key_var_name]
+TEXT_ANALYTICS_SUBSCRIPTION_KEY = 'abd1652d64b84172b9a3e316c558f4e6'
 
-endpoint_var_name = 'https://spotifytextanalysis.cognitiveservices.azure.com/'
-if not endpoint_var_name in os.environ:
-    raise Exception('Please set/export the environment variable: {}'.format(endpoint_var_name))
-endpoint = os.environ[endpoint_var_name]
+subscription_key = TEXT_ANALYTICS_SUBSCRIPTION_KEY
+
+TEXT_ANALYTICS_ENDPOINT = 'https://spotifytextanalysis.cognitiveservices.azure.com/'
+
+endpoint = TEXT_ANALYTICS_ENDPOINT
 
 def authenticateClient():
     credentials = CognitiveServicesCredentials(subscription_key)
     text_analytics_client = TextAnalyticsClient(
         endpoint=endpoint, credentials=credentials)
     return text_analytics_client
-
-def sentiment():
+def sentiment(TextToTest):
     
     client = authenticateClient()
 
     try:
         documents = [
-            {"id": "1", "language": "en", "text": "I had the best day of my life."},
-            {"id": "2", "language": "en",
-                "text": "This was a waste of my time. The speaker put me to sleep."},
-            {"id": "3", "language": "es", "text": "No tengo dinero ni nada que dar..."},
-            {"id": "4", "language": "it",
-                "text": "L'hotel veneziano era meraviglioso. È un bellissimo pezzo di architettura."}
+            {"id": "1", "language": "en", "text": TextToTest},
         ]
 
         response = client.sentiment(documents=documents)
@@ -42,18 +34,13 @@ def sentiment():
         print("Encountered exception. {}".format(err))
 
 
-def key_phrases():
+def key_phrases(TextToTest):
     
     client = authenticateClient()
 
     try:
         documents = [
-            {"id": "1", "language": "ja", "text": "猫は幸せ"},
-            {"id": "2", "language": "de",
-                "text": "Fahrt nach Stuttgart und dann zum Hotel zu Fu."},
-            {"id": "3", "language": "en",
-                "text": "My cat might need to see a veterinarian."},
-            {"id": "4", "language": "es", "text": "A mi me encanta el fútbol!"}
+            {"id": "1", "language": "en", "text": TextToTest},
         ]
 
         for document in documents:
@@ -70,3 +57,8 @@ def key_phrases():
 
     except Exception as err:
         print("Encountered exception. {}".format(err))
+
+
+TextToTestt = "Prosecutors say the man accused of murdering Grace Millane disposed of her body using the case."
+sentiment(TextToTestt)
+key_phrases(TextToTestt)
