@@ -2,14 +2,24 @@
 
 #import Modules
 
-import spotipy 
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials 
 
-#needs to be authorized with a token before this will work
+#Auth Code
+
+#credendials for spotify api dev account
+credentials = SpotifyClientCredentials(
+    client_id='90d2a3cd7ee04a97ac686fd3ffcf13f6',
+    client_secret='dbcbbdfcc8004d218e0cdc42e80cbdf3')
+
+
+#get token
+token = credentials.get_access_token()
 
 #Create spotify object
-spotify = spotipy.Spotify()
+sp = spotipy.Spotify(auth=token)
 
-def GetSong :(searchterm)
-    result = spotify.search(q=searchterm)
+def getSong :(searchterm)
+    result = sp.search(q=searchterm)
 
     return result
