@@ -8,6 +8,7 @@
 [Ll]ocal
 [Ss]cripts
 [Tt]cl
+.vscode
 pyvenv.cfg
 .venv
 pip-selfcheck.json
