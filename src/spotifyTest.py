@@ -1,6 +1,6 @@
+import sys
 import spotipy 
 import spotipy.util as util
-import sys
 from spotipy.oauth2 import SpotifyClientCredentials
 
 #needs to be authorized with a token before this will work
