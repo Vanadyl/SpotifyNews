@@ -1,11 +1,11 @@
-#Spotify Search File
+# Spotify Search File
 
-#import Modules
+# import Modules
 
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials 
 
-#Auth Code
+####### Auth Code ########
 
 #credendials for spotify api dev account
 credentials = SpotifyClientCredentials(
@@ -13,13 +13,32 @@ credentials = SpotifyClientCredentials(
     client_secret='dbcbbdfcc8004d218e0cdc42e80cbdf3')
 
 
-#get token
+# get token
 token = credentials.get_access_token()
 
-#Create spotify object
+# Create spotify object
 sp = spotipy.Spotify(auth=token)
 
-def getSong :(searchterm)
-    result = sp.search(q=searchterm, limit=1)
+def getSong(searchterm):
+    '''
+    parameters: searchterm
+    type: string
+    description: returns a dict format of a song from spotify
+    '''
 
-    return result
+    # search spotify api for song
+    result = sp.search(q=searchterm, limit=1)
+    # reformat data
+    result = result['tracks']['items']
+
+    # Creat dict to store data we want
+    # dict stores song name, artist name & a song preview url
+
+    songResult = {
+        "name":result['name'],
+        "artist":result['artists'][0]['name'],
+        "url":result['preview_url']
+    }
+
+    # return the dict
+    return songResult
