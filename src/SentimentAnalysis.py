@@ -16,6 +16,7 @@ def authenticateClient():
     text_analytics_client = TextAnalyticsClient(
         endpoint=endpoint, credentials=credentials)
     return text_analytics_client
+
 def sentiment(TextToTest):
     
     client = authenticateClient()
@@ -50,3 +51,5 @@ def key_phrases(TextToTest):
     except Exception as err:
         print("Encountered exception. {}".format(err))
 
+if __name__ == "__main__":
+    pass
