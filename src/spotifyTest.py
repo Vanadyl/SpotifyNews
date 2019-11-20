@@ -1,7 +1,8 @@
 import spotipy 
-import spotipy.util as util
-from spotipy.oauth2 import SpotifyClientCredentials
 import sys
+from spotipy.oauth2 import SpotifyClientCredentials
+import json
+
 #needs to be authorized with a token before this will work
 '''
 scope =''
@@ -28,9 +29,15 @@ token = credentials.get_access_token()
 
 sp = spotipy.Spotify(auth=token)
 
-searchterm = 'Disarray'
+searchterm = 'Hello'
 
-result = sp.search(q=searchterm)
+result = sp.search(q=searchterm, limit=1)
+
+#result2 = json.load(result)
 
 print(result)
+
+#print(result2.get("popularity"))
+#print(result.get("items"))
+
 
