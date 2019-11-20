@@ -39,20 +39,31 @@ class MainWindow(QW.QWidget):
             -right_top news title
             -right_down news description
             '''
+            # sometimes newsapi does not return a description for one piece of news
+            if description == None:
+                description = "No description for this"
+
             w = QW.QWidget()
             # layout
             layout_main = QW.QHBoxLayout()
             
-            news_pic = QW.QLabel()
-            news_pic.setFixedSize(50,30)
-            maps = QtGui.QPixmap().scaled(50,30)
-            news_pic.setPixmap(maps)
+            # news_pic = QW.QLabel()
+            # news_pic.setFixedSize(50,30)
+            # maps = QtGui.QPixmap().scaled(50,30)
+            # news_pic.setPixmap(maps)
+            TitleLabel = QW.QLabel(title)
+            TitleLabel.setStyleSheet('font-size: 16px soild')
+            TitleLabel.setWordWrap(True)
+            DescriptionLabel = QW.QLabel(description)
+            DescriptionLabel.setStyleSheet('font-size: 12px')
+            DescriptionLabel.setWordWrap(True)
 
             layout_right = QW.QVBoxLayout()  # layout right
-            layout_right.addWidget(QW.QLabel(title))  # title
-            layout_right.addWidget(QW.QLabel(description))  #  description
+            layout_right.addWidget(TitleLabel)# title
+            layout_right.addWidget(DescriptionLabel)  #  description
+            
             #set the layout
-            layout_main.addWidget(news_pic)
+            # layout_main.addWidget(news_pic)
             layout_main.addLayout(layout_right)
             w.setLayout(layout_main)
             return w
@@ -61,13 +72,11 @@ class MainWindow(QW.QWidget):
         self.topHeadlines = news.getTopHeadlines()
         for i in self.topHeadlines['articles']:
             #self.newsList.addItem(i['title'])
-            #print(i['title'],i['description'],i['urlToImage'])
+            print(i['title'],i['description'],i['urlToImage'])
             item = QW.QListWidgetItem()
             
             item.setSizeHint(QtCore.QSize(200,100))
-            
-            
-            
+
             w = getNewsItem(i['title'],i['description'])
             self.newsList.addItem(item)
             self.newsList.setItemWidget(item,w)
@@ -81,7 +90,8 @@ class MainWindow(QW.QWidget):
         # set the MainWindow
         self.setWindowTitle("Spotify&News")
         self.resize(1200,600)
-        self.setFixedSize(1200,600)
+        self.setMinimumSize(750,500)
+        # self.setFixedSize(800,500) # set the window at a fixed size
         # set the windows show in the middle of screen
         screen = QW.QDesktopWidget().screenGeometry()
         size = self.geometry()
