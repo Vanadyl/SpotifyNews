@@ -20,6 +20,6 @@ token = credentials.get_access_token()
 sp = spotipy.Spotify(auth=token)
 
 def getSong :(searchterm)
-    result = sp.search(q=searchterm)
+    result = sp.search(q=searchterm, limit=1)
 
     return result
