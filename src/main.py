@@ -6,7 +6,7 @@
 @Auther: XQING
 @Date: 2019-11-03 21:13:11
 @LastEditors: XQING
-@LastEditTime: 2019-11-12 15:05:37
+@LastEditTime: 2019-11-20 23:34:38
 @Software: VSCode
 '''
 
@@ -18,8 +18,10 @@ import sys
 import news
 import webbrowser
 import requests
-import SearchSpotify
-from PIL import Image
+import time
+import threading
+import SentimentAnalysis as sa
+import SearchSpotify as ss
 
 # MainWindow Class
 class MainWindow(QW.QWidget):
@@ -58,26 +60,85 @@ class MainWindow(QW.QWidget):
             w.setLayout(layout_main)
             return w
         
+        # before start to get news disable self.displayTrackBtn.setEnabled(False)
+        self.displayTrackBtn.setEnabled(False)
         #use news to get top headlines
         self.topHeadlines = news.getTopHeadlines()
+        #keyWords = ['Jose Mourinho', 'passion', 'train', 'people', 'Ukraine pressure - Sondland', 'public duties', 'record-breaking explosion', "Hong Kong's university siege", 'Celeb', 'picture of Adele Roberts', 'cockpit', 'Boris Johnson', 'hunger strike', 'Hong Kong minister', 'manifesto pledge', 'Mother', 'dirt cheap FTSE', 'Samsung Galaxy S10 Lite', 'suspended animation', 'ways']
+        keyWords = []
+        self.trackInfo = []
+        def getKeyWordAndTrackInfo():
+            for i in self.topHeadlines['articles']:
+                keyWords.append(sa.key_phrases(i['title']))
+            time.sleep(2)
+            for j in keyWords:
+                self.trackInfo.append(ss.getSong(j))
+            
+            self.displayTrackBtn.setEnabled(True)
+            print(keyWords)
+            print(self.trackInfo)
+        t1 = threading.Thread(target=getKeyWordAndTrackInfo,name="getKeyWordAndTrackInfo")
+        t1.start()
+
+        sentime = 0
+        def getSentime():
+            sentime = sa.sentiment(keyWords)
+            print(sentime)
+        t2 = threading.Thread(target=getSentime,name="getSentime")
+        t2.start()
+        
         for i in self.topHeadlines['articles']:
             #self.newsList.addItem(i['title'])
             #print(i['title'],i['description'],i['urlToImage'])
             item = QW.QListWidgetItem()
-            
             item.setSizeHint(QtCore.QSize(200,100))
-            
-            
-            
             w = getNewsItem(i['title'],i['description'])
             self.newsList.addItem(item)
             self.newsList.setItemWidget(item,w)
-    
+          
+    def displayTrack_click(self):
+        
+        def getSpotifyItem(name,artist):
+            w = QW.QWidget()
+            layout_main = QW.QHBoxLayout()
+
+            trackNameLabel = QW.QLabel(name)
+            trackNameLabel.setStyleSheet('font-size: 16px soild')
+            trackNameLabel.setWordWrap(True)
+            artistLabel = QW.QLabel(artist)
+            artistLabel.setStyleSheet('font-size: 12px')
+            artistLabel.setWordWrap(True)
+            layout_list = QW.QVBoxLayout()
+            layout_list.addWidget(trackNameLabel)# track name
+            layout_list.addWidget(artistLabel)  #  track artist
+            layout_main.addLayout(layout_list)
+            w.setLayout(layout_main)
+            print('return W')
+            return w
+        track = []
+        for k in self.trackInfo:
+            if k != 'Error' and 'None':
+                track.append(k)
+        self.trackInfo = track
+        for i in self.trackInfo:
+            item = QW.QListWidgetItem()
+            item.setSizeHint(QtCore.QSize(150,100))
+            w = getSpotifyItem(i['name'],i['artist'])
+            self.songList.addItem(item)
+            self.songList.setItemWidget(item,w)
+
+    def aboutBtn_click(self):
+        QW.QMessageBox.information(self,"About our group","Group Info",QW.QMessageBox.Yes)
 
     def clickNews(self,item):
         webbrowser.open(self.topHeadlines['articles'][self.newsList.currentRow()]['url'])
         
+    def cilckTrack(self,item):
+        url  = self.trackInfo[self.songList.currentRow()]['url']
+        if url != None:
+            webbrowser.open(url)
         
+    
     def initUi(self):
         # set the MainWindow
         self.setWindowTitle("Spotify&News")
@@ -92,8 +153,16 @@ class MainWindow(QW.QWidget):
         # button getNews
         self.getNewsBtn = QW.QPushButton('Get News',self)
         self.getNewsBtn.clicked.connect(self.getNewsBtn_click)
+        # button about
+        self.aboutBtn = QW.QPushButton('About',self)
+        self.aboutBtn.clicked.connect(self.aboutBtn_click)
+        # buton display tracks
+        self.displayTrackBtn =QW.QPushButton('Dsiplay Tracks',self)
+        self.displayTrackBtn.setEnabled(False)
+        self.displayTrackBtn.clicked.connect(self.displayTrack_click)
         # Spotify song list
-        self.songList = QW.QListWidget(self)      
+        self.songList = QW.QListWidget(self)
+        self.songList.itemClicked.connect(self.cilckTrack)    
         # news list
         self.newsList = QW.QListWidget(self)
         self.newsList.itemClicked.connect(self.clickNews)
@@ -104,11 +173,14 @@ class MainWindow(QW.QWidget):
 
         hbox.addWidget(self.newsList,stretch=8)
 
-        vbox = QW.QVBoxLayout()
-        # vbox.addStretch(1)
-        vbox.addLayout(hbox)
-        vbox.addWidget(self.getNewsBtn)
+        btnbox = QW.QHBoxLayout()
+        btnbox.addWidget(self.aboutBtn)
+        btnbox.addWidget(self.displayTrackBtn)
+        btnbox.addWidget(self.getNewsBtn)
         
+        vbox = QW.QVBoxLayout()
+        vbox.addLayout(hbox)
+        vbox.addLayout(btnbox)
         self.setLayout(vbox)
         self.show()
 
