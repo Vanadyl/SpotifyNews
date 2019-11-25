@@ -200,3 +200,4 @@ if __name__ == '__main__':
     app = QW.QApplication(sys.argv)
     w = MainWindow()
     app.exit(app.exec_())
+    
